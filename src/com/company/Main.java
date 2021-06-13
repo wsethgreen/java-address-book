@@ -39,12 +39,12 @@ public class Main {
             System.out.println("------------------------");
             System.out.println("What action would you like to perform?");
             System.out.println("------------------------");
-            System.out.println("Enter 'add' to add a contact.\n" +
-                    "Enter 'remove' to remove a contact.\n" +
-                    "Enter 'search' to search for a contact.\n" +
-                    "Enter 'print' to print all contacts in your Address Book\n" +
-                    "Enter 'delete' to delete all contacts from your Address Book.\n" +
-                    "Enter 'quit' to quit the program.\n");
+            System.out.println("1. Enter 'add' to add a contact.\n" +
+                    "2. Enter 'remove' to remove a contact.\n" +
+                    "3. Enter 'search' to search for a contact.\n" +
+                    "4. Enter 'print' to print all contacts in your Address Book\n" +
+                    "5. Enter 'delete' to delete all contacts from your Address Book.\n" +
+                    "6. Enter 'quit' to quit the program.\n");
 
             // variable to hold the action the user wants to perform.
             String actionToPerform = input.nextLine().toLowerCase();
@@ -130,14 +130,16 @@ public class Main {
                 boolean searchContacts = true;
 
                 while (searchContacts) {
-
+                    System.out.println("------------------------");
                     System.out.println("Search by first name, last name, " +
                             "email, or phone number: ");
+                    System.out.println("------------------------");
 
                     String searchQuery = input.nextLine();
 
                     AddressBook.searchContacts(searchQuery);
 
+                    System.out.println("------------------------");
                     System.out.println("Would you like to search again? Y/N: ");
                     String searchAgain = input.nextLine().toUpperCase();
 
@@ -157,19 +159,18 @@ public class Main {
             }
             // If statement to quit the program.
             else if (actionToPerform.equals("quit")) {
+                System.out.println("------------------------");
                 System.out.println("Have a nice day!");
+                System.out.println("------------------------");
                 runProgram = false;
             }
             // Else statement will warn user they did not enter a valid action
             else {
+                System.out.println("------------------------");
                 System.out.println("Invalid entry. Please enter: \n" +
                         "'add', 'remove', 'print', 'search', 'delete', or 'quit'.\n");
+                System.out.println("------------------------");
             }
-
         } // while statement bracket - General program
-
     } // main method bracket
-
-
-
 } // class bracket

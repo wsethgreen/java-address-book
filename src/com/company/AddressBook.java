@@ -76,6 +76,10 @@ public class AddressBook {
     public static void addContact(String firstName, String lastName, String email, String phoneNumber) {
         Contact newContact = new  Contact(firstName, lastName, email, phoneNumber);
         contactList.add(newContact);
+        System.out.println("------------------------");
+        System.out.println("Successfully added contact for " +
+                newContact.getFirstName() + " " + newContact.getLastName());
+        System.out.println("------------------------");
     }
 
     // Method to search all contacts in the address book based
@@ -88,7 +92,6 @@ public class AddressBook {
 
         // Loop through contact list
         for (Contact contact : contactList) {
-            boolean validEmail;
             if (contact.getEmail().equals(email)) {
                 contactList.remove(contact);
                 System.out.println("------------------------");
@@ -100,11 +103,11 @@ public class AddressBook {
             }
         }
 
-        // If no contact emails match the searchQuery, print out a message alerting
-        // the user no
+        // If no contact emails match the searchQuery, print out a message
+        // alerting the user no contact has that email.
         if (noEmailMatch == contactList.size()) {
             System.out.println("------------------------");
-            System.out.println("Unable to find a contact with the email " + email);
+            System.out.println("Unable to find a contact with the email " + "'" + email + "'.");
             System.out.println("No Contacts removed from the address book.");
             System.out.println("------------------------");
         }
@@ -139,6 +142,7 @@ public class AddressBook {
                 System.out.println("Name: " + contact.getFirstName() + " " + contact.getLastName() +
                         "\nEmail: " + contact.getEmail() + "\nPhone Number: " + contact.getPhoneNumber());
                 System.out.println("------------------------");
+                System.out.println("     ");
                 resultNum++;
             }
         }
@@ -155,24 +159,50 @@ public class AddressBook {
     public static void printContacts() {
         // Set contact number
         int contactNum = 1;
-        // loop through address book and print out the
-        // contact info for each contact
-        for (Contact contact : contactList) {
-            System.out.println("------------------------");
-            System.out.println("Contact #" + contactNum);
-            System.out.println("Name: " + contact.getFirstName() + " " + contact.getLastName() +
-                    "\nEmail: " + contact.getEmail() + "\nPhone Number: " + contact.getPhoneNumber());
-            System.out.println("------------------------");
-            contactNum++;
+
+        // if statement to determine if there are any contacts in the
+        // address book to print.
+        if (contactList.size() > 0) {
+            // loop through address book and print out the
+            // contact info for each contact
+            for (Contact contact : contactList) {
+                System.out.println("------------------------");
+                System.out.println("Contact #" + contactNum);
+                System.out.println("Name: " + contact.getFirstName() + " " + contact.getLastName() +
+                        "\nEmail: " + contact.getEmail() + "\nPhone Number: " + contact.getPhoneNumber());
+                System.out.println("------------------------");
+                System.out.println("     ");
+                contactNum++;
+            }
         }
+        // If there are no contacts in the address book print a
+        // statement letting the user know the address book is empty
+        else {
+            System.out.println("------------------------");
+            System.out.println("There are no contacts in your address book!");
+            System.out.println("------------------------");
+        }
+
     }
 
     // Method to delete all contacts from the address book
     public static void deleteAllContacts() {
-        contactList.clear();
-        System.out.println("------------------------");
-        System.out.println("All contacts have been deleted!");
-        System.out.println("------------------------");
+
+        // if statement to determine if the address book has
+        // any contacts to delete
+        if (contactList.size() > 0) {
+            contactList.clear();
+            System.out.println("------------------------");
+            System.out.println("All contacts have been deleted!");
+            System.out.println("------------------------");
+    }
+        // If there are no contacts in the address book print a
+        // statement letting the user know the address book is empty
+        else {
+            System.out.println("------------------------");
+            System.out.println("There are no contacts in your address book!");
+            System.out.println("------------------------");
+        }
     }
 
 }
