@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -10,9 +8,6 @@ public class Main {
 
         // Create scanner for user input
         Scanner input = new Scanner(System.in);
-
-        // Create ArrayList to hold all contacts
-        ArrayList<AddressBook> contacts = new ArrayList<>();
 
         // Welcome user and ask if they'd like to use their address book
         System.out.println("Welcome to your address book!");

@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class AddressBook {
 
@@ -74,12 +73,48 @@ public class AddressBook {
 
     // // Method to add a new contact to the address book
     public static void addContact(String firstName, String lastName, String email, String phoneNumber) {
+        // Create a new Contact object based on the information provided by the user.
         Contact newContact = new  Contact(firstName, lastName, email, phoneNumber);
-        contactList.add(newContact);
-        System.out.println("------------------------");
-        System.out.println("Successfully added contact for " +
-                newContact.getFirstName() + " " + newContact.getLastName());
-        System.out.println("------------------------");
+
+        // If there are no contacts in the address book yet, add
+        // the new contact to the address book.
+        if (contactList.size() == 0) {
+            contactList.add(newContact);
+            System.out.println("------------------------");
+            System.out.println("Successfully added contact for " +
+                    newContact.getFirstName() + " " + newContact.getLastName());
+            System.out.println("------------------------");
+        }
+        // if there is at least one contact in the address book, check
+        // for the email entered by the user. We will use the email as a unique
+        // identifier. If that email is already entered, do not allow the user to add
+        // a duplicate. If the email is not found, add the new contact.
+        else {
+
+            boolean duplicate = false;
+
+            for (Contact contact : contactList) {
+                if (contact.getEmail().equals(email)) {
+                    duplicate = true;
+                    break;
+                }
+            }
+
+            if (!duplicate) {
+                contactList.add(newContact);
+                System.out.println("------------------------");
+                System.out.println("Successfully added contact for " +
+                        newContact.getFirstName() + " " + newContact.getLastName());
+                System.out.println("------------------------");
+            } else {
+                System.out.println("------------------------");
+                System.out.println("That email (" + newContact.getEmail() + ") is already connected with the contact: " +
+                        newContact.getFirstName() + " " + newContact.getLastName());
+                System.out.println("Unable to save new contact.");
+                System.out.println("------------------------");
+            }
+        }
+
     }
 
     // Method to search all contacts in the address book based
@@ -87,30 +122,35 @@ public class AddressBook {
     // that contact will be removed from the address book.
     public static void removeContact(String email) {
 
-        // Check for valid email
-        int noEmailMatch = 0;
+        // boolean to determine if we found an email or not.
+        boolean foundEmail = false;
+        // variable to determine the index in the list for the found email
+        int contactListIndex = 0;
 
         // Loop through contact list
-        for (Contact contact : contactList) {
-            if (contact.getEmail().equals(email)) {
-                contactList.remove(contact);
-                System.out.println("------------------------");
-                System.out.println("Successfully removed contact for " +
-                        contact.getFirstName() + " " + contact.getLastName());
-                System.out.println("------------------------");
-            } else {
-                noEmailMatch++;
+        for (int i = 0; i < contactList.size(); i++) {
+            if (contactList.get(i).getEmail().equals(email)) {
+                contactListIndex = i;
+                foundEmail = true;
+                break;
             }
         }
 
         // If no contact emails match the searchQuery, print out a message
         // alerting the user no contact has that email.
-        if (noEmailMatch == contactList.size()) {
+        if (foundEmail) {
+            System.out.println("------------------------");
+            System.out.println("Successfully removed contact for " +
+                    contactList.get(contactListIndex).getFirstName() + " " + contactList.get(contactListIndex).getLastName());
+            System.out.println("------------------------");
+            contactList.remove(contactListIndex);
+        } else {
             System.out.println("------------------------");
             System.out.println("Unable to find a contact with the email " + "'" + email + "'.");
             System.out.println("No Contacts removed from the address book.");
             System.out.println("------------------------");
         }
+
     }
 
     // Method to search all contacts in the address book and
